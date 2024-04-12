@@ -283,6 +283,8 @@ namespace TEngine
 
         private void UseLocalizationCSV(string text, bool isLocalizeAll = false)
         {
+            text = text.Replace("\r\n", "\n");
+            text = text.Replace("\r", "\n");
             m_SourceData.Import_CSV(string.Empty, text, eSpreadsheetUpdateMode.Merge, ',');
             if (isLocalizeAll)
             {

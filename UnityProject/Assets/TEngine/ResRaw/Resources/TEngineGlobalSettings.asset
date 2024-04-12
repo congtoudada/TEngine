@@ -22,9 +22,9 @@ MonoBehaviour:
       m_ResAdminCode: 0
       m_ServerType: 1
       m_CleanCommitPathRes: 1
-      m_InnerResourceSourceUrl: http://127.0.0.1:8088
-      m_ExtraResourceSourceUrl: http://127.0.0.1:8088
-      m_FormalResourceSourceUrl: http://127.0.0.1:8088
+      m_InnerResourceSourceUrl: http://127.0.0.1:8081
+      m_ExtraResourceSourceUrl: http://127.0.0.1:8081
+      m_FormalResourceSourceUrl: http://127.0.0.1:8081
     m_AtlasFolder: Assets/AssetRaw/Atlas
     HostServerURL: http://127.0.0.1:8081/AssetRoot
     FallbackHostServerURL: http://127.0.0.1:8081/AssetRoot
@@ -79,7 +79,6 @@ MonoBehaviour:
     - uiElementRegex: m_canvasGroup
       componentName: CanvasGroup
   m_BybridCLRCustomGlobalSettings:
-    m_Enable: 1
     HotUpdateAssemblies:
     - GameBase.dll
     - GameProto.dll
