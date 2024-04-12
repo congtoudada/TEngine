@@ -26,7 +26,6 @@ namespace GameLogic
         {
             string typeName = typeof(T).Name;
             return CreateItem(typeName);
-            ;
         }
 
         public T CreateItem(string itemName)
