@@ -3,6 +3,7 @@ using GameBase;
 using GameConfig;
 using TEngine;
 using UnityEngine;
+using TEngine.Localization.SimpleJSON;
 
 /// <summary>
 /// 配置加载器。
@@ -31,7 +32,12 @@ public class ConfigSystem : Singleton<ConfigSystem>
     /// </summary>
     public void Load()
     {
-        _tables = new Tables(LoadByteBuf);
+        var tablesCtor = typeof(Tables).GetConstructors()[0];
+        var loaderReturnType = tablesCtor.GetParameters()[0].ParameterType.GetGenericArguments()[1];
+        System.Delegate loader = loaderReturnType == typeof(ByteBuf) ? 
+            new System.Func<string, ByteBuf>(LoadByteBuf) : 
+            (System.Delegate)new System.Func<string, JSONNode>(LoadJson);
+        _tables = (Tables)tablesCtor.Invoke(new object[] {loader});
         _init = true;
     }
 
@@ -46,5 +52,18 @@ public class ConfigSystem : Singleton<ConfigSystem>
         byte[] bytes = textAsset.bytes;
         GameModule.Resource.UnloadAsset(textAsset);
         return new ByteBuf(bytes);
+    }
+    
+    /// <summary>
+    /// 加载json配置
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    private JSONNode LoadJson(string file)
+    {
+        TextAsset textAsset = GameModule.Resource.LoadAsset<TextAsset>(file);
+        string json = textAsset.text;
+        GameModule.Resource.UnloadAsset(textAsset);
+        return JSON.Parse(json);
     }
 }
